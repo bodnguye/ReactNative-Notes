@@ -12,7 +12,7 @@ export default function App() {
 const addGoalHandler = goalTitle => {
   setCourseGoals(currentGoals => [
     ...currentGoals,          // guaranteed to get the latest snapshot of coure goal in react native
-    { id: Math.random().toString(), value: goalTitle }
+    { id: Math.random().toString(), value: goalTitle   }
   ]);  
 };
 
@@ -22,7 +22,7 @@ const addGoalHandler = goalTitle => {
       <FlatList 
       keyExtractor={(item, index) => item.id} 
       data={courseGoals} 
-      renderItem={itemData => <GoalItem title={itemData.item.value} />}
+      renderItem={itemData => <GoalItem onDelete={() => console.log('Does that work')} title={itemData.item.value} />}
       />  
     </View>
   );
