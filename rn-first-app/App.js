@@ -8,9 +8,14 @@ export default function App() {
 
   const [courseGoals, setCourseGoals] = useState([]);
   const [isAddMode, setIsAddMode] = useState(false);
+  // console.log('RE-RENDERIG COMPONENT');
+  // console.log(courseGoals);
 
 
   const addGoalHandler = goalTitle => {
+    if (goalTitle.length === 0) {
+      return;
+    }
     setCourseGoals(currentGoals => [
       ...currentGoals,          // guaranteed to get the latest snapshot of coure goal in react native
       { id: Math.random().toString(), value: goalTitle }
@@ -19,15 +24,24 @@ export default function App() {
   };
 
   const removeGoalHandler = goalID => {
+    // console.log('TO BE DELETED: ' + goalID);
+    // console.log(courseGoals);
     setCourseGoals(currentGoals => {
       return currentGoals.filter((goal) => goal.id !== goalID);
     })
-  }
+  };
+
+  const cancelGoalAdditionHandler = () => {
+    setIsAddMode(false);
+  };
 
   return (
     <View style={styles.screen}>
       <Button title='Add New Goal' onPress={() => setIsAddMode(true)} />
-      <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} />
+      <GoalInput
+        visible={isAddMode}
+        onAddGoal={addGoalHandler}
+        onCancel={cancelGoalAdditionHandler} />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={courseGoals}
