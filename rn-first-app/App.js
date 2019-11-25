@@ -15,6 +15,7 @@ export default function App() {
       ...currentGoals,          // guaranteed to get the latest snapshot of coure goal in react native
       { id: Math.random().toString(), value: goalTitle }
     ]);
+    setIsAddMode(false);
   };
 
   const removeGoalHandler = goalID => {
